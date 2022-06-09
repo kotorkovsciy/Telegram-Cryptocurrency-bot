@@ -15,6 +15,6 @@ pip install -r requirements.txt
 ```
 
 ### Функция №1
-[Функция](../scripts/getCrypto.py) отправляет на сайт CoinMarketCap запрос по API ключу.
+[Функция](../main/scripts/getCrypto.py) отправляет на сайт CoinMarketCap запрос по API ключу.
 
 ![image](https://github.com/Aveylof/Telegram-Cryptocurrency-bot/blob/main/gif/func_1.gif)
