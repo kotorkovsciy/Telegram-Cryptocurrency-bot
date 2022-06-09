@@ -13,5 +13,4 @@ pip install -r requirements.txt
 ```
 
 ### Функция №1
-
-
+![image](https://github.com/Aveylof/Telegram-Cryptocurrency-bot/blob/main/gif/func_1.gif)
