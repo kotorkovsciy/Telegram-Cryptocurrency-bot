@@ -23,7 +23,7 @@ class Database:
         with self.connection:
             async with state.proxy() as data:
                 a = tuple(data.values())
-                return self.cursor.executemany(f'INSERT INTO users VALUES (?, ?, ?)', (a[0], a[1], a[2]))
+                self.cursor.execute(f'INSERT INTO users VALUES (?, ?, ?)', (a[0], a[1], a[2],))
 
     async def sql_upName(self, fname, tname, lname, id_user):
         with self.connection:
