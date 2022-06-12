@@ -1,1 +1,2 @@
 from handlers import sendCurrentPrice
+from handlers import sendtimePrice

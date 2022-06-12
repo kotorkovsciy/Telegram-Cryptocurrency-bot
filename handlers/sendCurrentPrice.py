@@ -1,6 +1,3 @@
-from os import stat
-import sys
-import asyncio
 from aiogram import types, Dispatcher
 from aiogram import types, Dispatcher 
 from aiogram.dispatcher.filters.state import State, StatesGroup
@@ -14,7 +11,7 @@ class CurrentPrice(StatesGroup):
     symbol = State()
     valute = State()
 
-async def startCurrentPrice(message: types.Message):
+async def startCurrentPrice(message: types.Message, state: FSMContext):
     await CurrentPrice.symbol.set()
     await message.reply('Выбери крипту, если ее нет в списке, можешь написать ее сам.', reply_markup=kb_symbol)
 
