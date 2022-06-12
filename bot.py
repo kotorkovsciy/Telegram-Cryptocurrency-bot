@@ -2,21 +2,24 @@ import asyncio
 from aiogram.utils import executor
 from create_bot import dp
 from handlers import sendCurrentPrice, start, sendtimePrice
-from scripts import MySQL_data, getCrypto
+from scripts import getCrypto
+from scripts.MySQL_data import SQL_DB
 
 async def sendCrypto(wait_for):
-    g = await MySQL_data.sql_read()
-    print("ddf", g)
-    for i in range(len(g)):
+    while True:
         await asyncio.sleep(wait_for)
-        value = getCrypto.CryptoCurrency.getCurrentPrice(g[0], g[1])
-        print(value)
+        num = list(await SQL_DB.sql_quantity())
+        records = await SQL_DB.sql_read()
+        print("ddf", num[0])
+        for row in records:
+            await asyncio.sleep(wait_for)
+            value = getCrypto.CryptoCurrency.getCurrentPrice(row[0], row[1])
+            print(value)
         
         
 
 async def on_startup(_):
     print('Бот вышел в онлайн')
-    MySQL_data.sql_start()
 
 
 
@@ -24,6 +27,9 @@ async def on_startup(_):
 sendtimePrice.register_handlers_sendtimePrice(dp)
 start.register_handlers_common(dp)
 sendCurrentPrice.register_handlers_sendCurrentPrice(dp)
-loop = asyncio.get_event_loop()
-loop.create_task(sendCrypto(10)) # поставим 10 секунд, в качестве теста
-asyncio.run(executor.start_polling(dp, skip_updates=True, on_startup=on_startup))
+
+if __name__ == '__main__':
+  loop = asyncio.new_event_loop()
+  asyncio.set_event_loop(loop)
+  loop.create_task(sendCrypto(10))
+  executor.start_polling(dp, skip_updates=True, on_startup=on_startup)

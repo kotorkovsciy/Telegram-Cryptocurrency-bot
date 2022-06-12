@@ -7,7 +7,7 @@ from keyboards.kb_value import kb_symbol, kb_valute
 from keyboards.mainMenu import mainMenu
 from scripts.getCrypto import CryptoCurrency
 from aiogram.dispatcher.filters import Text
-from scripts import MySQL_data
+from scripts.MySQL_data import SQL_DB
 class TimerCurrentPrice(StatesGroup):
     symbol = State()
     valute = State()
@@ -33,7 +33,7 @@ async def getUserID(message: types.Message, state: FSMContext):
     if message.text.lower() == "да":
         async with state.proxy() as data:
             data['id_user'] = message.from_user.id
-        await MySQL_data.sql_add_command(state)
+        await SQL_DB.sql_add_command(state)
         await state.finish()
     elif message.text.lower() == "нет":
         await state.finish()
