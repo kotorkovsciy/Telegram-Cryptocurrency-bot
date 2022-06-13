@@ -1,3 +1,4 @@
+from ast import arg
 import sqlite3 as sq
 
 class Database:
@@ -5,11 +6,12 @@ class Database:
         self.connection = sq.connect(db_file, check_same_thread=False)
         self.cursor = self.connection.cursor()
         self.connection.execute('CREATE TABLE IF NOT EXISTS users(value_crypto TEXT, valutte TEXT, id_user INT)')
+        self.connection.execute('CREATE TABLE IF NOT EXISTS time(time INT)')
 
-    async def sql_read(self):
+    async def sql_read(self, select = '*', name_table = 'users'):
         with self.connection:
             try: 
-                a = self.cursor.execute(f'SELECT * FROM users').fetchmany()
+                a = self.cursor.execute(f'SELECT {select} FROM {name_table}').fetchmany()
                 return a
             except:
                 print('Не найдено.')
